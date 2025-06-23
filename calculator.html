@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Plan Your Wealth - Calculator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Roboto:wght@400;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script defer src="assets/main.js"></script>
+</head>
+<body>
+  <header>
+    <div class="top-brand">
+      <div class="brand-text">Plan Your Wealth</div>
+      <div class="current-time">2025-06-05 11:03:12 UTC</div>
+      <div class="profile-menu-container" id="profileMenuContainer">
+        <button class="user-info" id="profileMenuBtn">Welcome, MO-GulshanK-23504 &#9662;</button>
+        <div class="profile-dropdown" id="profileDropdown">
+          <div class="profile-section">
+            <strong>MO-GulshanK-23504</strong>
+            <span>Email: gulshank@example.com</span>
+            <span>Role: User</span>
+            <span>Member since: Jan 2024</span>
+          </div>
+          <div class="profile-actions">
+            <button onclick="viewProfile()">View Profile</button>
+            <button onclick="logout()">Logout</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <nav>
+      <div class="nav-links">
+        <a href="index.html">Dashboard</a>
+        <a href="goals.html">Goals</a>
+        <a href="investments.html">Investments</a>
+        <a href="income-expenses.html">Income & Budget</a>
+        <a href="reports.html">Reports</a>
+        <a href="calculator.html" class="active">Calculator</a>
+        <a href="support.html">Support</a>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <section class="active">
+      <h1>Calculator</h1>
+      <div class="calc-tabs">
+        <button class="calc-tab active" id="tab-fv" onclick="showCalcTab('fv')">Future Value Calculator</button>
+        <button class="calc-tab" id="tab-emi" onclick="showCalcTab('emi')">EMI Calculator</button>
+        <button class="calc-tab" id="tab-corpus" onclick="showCalcTab('corpus')">Corpus Calculator</button>
+      </div>
+      <div class="calculator-layout">
+        <div style="flex:1;min-width:320px;max-width:480px;">
+          <!-- Future Value Calculator -->
+          <div class="calc-form-container" id="calc-fv">
+            <form onsubmit="calcFutureValue(event)">
+              <label for="fv-pv">Present Value (₹)</label>
+              <input type="number" step="0.01" id="fv-pv" placeholder="E.g. 100000" required>
+              <label for="fv-rate">Annual Interest Rate (%)</label>
+              <input type="number" step="0.01" id="fv-rate" placeholder="E.g. 8" required>
+              <label for="fv-years">Number of Years</label>
+              <input type="number" step="1" id="fv-years" placeholder="E.g. 10" required>
+              <label for="fv-type">Compounding Frequency</label>
+              <select id="fv-type" required>
+                <option value="1">Yearly</option>
+                <option value="2">Half-Yearly</option>
+                <option value="4">Quarterly</option>
+                <option value="12">Monthly</option>
+              </select>
+              <button type="submit">Calculate Future Value</button>
+            </form>
+            <div class="calc-result" id="fv-result" style="display:none"></div>
+          </div>
+          <!-- EMI Calculator -->
+          <div class="calc-form-container" id="calc-emi" style="display:none">
+            <form onsubmit="calcEMI(event)">
+              <label for="emi-p">Loan Amount (₹)</label>
+              <input type="number" step="0.01" id="emi-p" placeholder="E.g. 500000" required>
+              <label for="emi-rate">Annual Interest Rate (%)</label>
+              <input type="number" step="0.01" id="emi-rate" placeholder="E.g. 9.5" required>
+              <label for="emi-n">Tenure (in months)</label>
+              <input type="number" step="1" id="emi-n" placeholder="E.g. 60" required>
+              <button type="submit">Calculate EMI</button>
+            </form>
+            <div class="calc-result" id="emi-result" style="display:none"></div>
+          </div>
+          <!-- Corpus Calculator -->
+          <div class="calc-form-container" id="calc-corpus" style="display:none">
+            <form onsubmit="calcCorpus(event)">
+              <label for="corpus-sip">Monthly SIP (₹)</label>
+              <input type="number" step="0.01" id="corpus-sip" placeholder="E.g. 5000" required>
+              <label for="corpus-rate">Expected Annual Return (%)</label>
+              <input type="number" step="0.01" id="corpus-rate" placeholder="E.g. 12" required>
+              <label for="corpus-years">Investment Duration (Years)</label>
+              <input type="number" step="1" id="corpus-years" placeholder="E.g. 15" required>
+              <button type="submit">Calculate Corpus</button>
+            </form>
+            <div class="calc-result" id="corpus-result" style="display:none"></div>
+          </div>
+        </div>
+        <div style="flex:1;">
+          <div id="calc-results-panel" class="calc-results-panel">
+            <h4>Calculation Results</h4>
+            <canvas id="calculationPieChart" width="300" height="300"></canvas>
+            <div class="calc-values-list" id="calc-values-list"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Plan Your Wealth - Goals</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Roboto:wght@400;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script defer src="assets/main.js"></script>
+</head>
+<body>
+  <header>
+    <div class="top-brand">
+      <div class="brand-text">Plan Your Wealth</div>
+      <div class="current-time">2025-06-05 11:03:12 UTC</div>
+      <div class="profile-menu-container" id="profileMenuContainer">
+        <button class="user-info" id="profileMenuBtn">Welcome, MO-GulshanK-23504 &#9662;</button>
+        <div class="profile-dropdown" id="profileDropdown">
+          <div class="profile-section">
+            <strong>MO-GulshanK-23504</strong>
+            <span>Email: gulshank@example.com</span>
+            <span>Role: User</span>
+            <span>Member since: Jan 2024</span>
+          </div>
+          <div class="profile-actions">
+            <button onclick="viewProfile()">View Profile</button>
+            <button onclick="logout()">Logout</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <nav>
+      <div class="nav-links">
+        <a href="index.html">Dashboard</a>
+        <a href="goals.html" class="active">Goals</a>
+        <a href="investments.html">Investments</a>
+        <a href="income-expenses.html">Income & Budget</a>
+        <a href="reports.html">Reports</a>
+        <a href="calculator.html">Calculator</a>
+        <a href="support.html">Support</a>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <section class="active">
+      <div class="goal-action-buttons">
+        <button type="button" class="add-dependent-btn" onclick="openDependentPopup()">+ Add Dependent</button>
+        <button type="button" class="show-dependent-btn" id="toggleDependentsBtn" onclick="toggleDependents()">Show Dependents</button>
+        <button type="button" class="link-investment-btn" onclick="openLinkInvestmentPopup()">Link Investment with Goals</button>
+      </div>
+      <div id="dependents-list" class="dependents-list" style="display:none"></div>
+      <h3 style="margin-top:0;">GOALS</h3>
+      <div class="goals-form-container">
+        <form id="goalsForm">
+          <label for="goal-name">Goal Name</label>
+          <input type="text" id="goal-name" placeholder="Enter goal name" required>
+          <label for="goal-amount">Goal Amount (Corpus)</label>
+          <input type="number" id="goal-amount" placeholder="Enter amount for the goal" required>
+          <label for="goal-target-date">Target Date</label>
+          <input type="date" id="goal-target-date" required>
+          <label for="goal-notes">Notes</label>
+          <textarea id="goal-notes" placeholder="Add any notes (optional)"></textarea>
+          <button type="submit">Add Goal</button>
+          <button type="button" class="auto-create-goals-btn" onclick="openAutoCreateGoalsPopup()" style="margin-left: 0;">Auto Create Goals</button>
+        </form>
+      </div>
+      <!-- Dependent Modal Popup -->
+      <div class="modal-bg" id="dependentModalBg">
+        <div class="modal-content">
+          <h3>Add Dependent</h3>
+          <form id="dependentForm" onsubmit="saveDependent(event)">
+            <label for="dep-name">Name</label>
+            <input type="text" id="dep-name" required>
+            <label for="dep-dob">Date of Birth</label>
+            <input type="date" id="dep-dob" required>
+            <label for="dep-gender">Gender</label>
+            <select id="dep-gender" required>
+              <option value="">Select</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
+            </select>
+            <label for="dep-relation">Relation</label>
+            <select id="dep-relation" required>
+              <option value="">Select</option>
+              <option value="self">Self</option>
+              <option value="spouse">Spouse</option>
+              <option value="daughter">Daughter</option>
+              <option value="son">Son</option>
+              <option value="mother">Mother</option>
+              <option value="father">Father</option>
+              <option value="mother-in-law">Mother In-Law</option>
+              <option value="father-in-law">Father In-Law</option>
+              <option value="brother">Brother</option>
+              <option value="sister">Sister</option>
+            </select>
+            <div class="modal-actions">
+              <button type="button" onclick="closeDependentPopup()">Cancel</button>
+              <button type="submit">Save</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <!-- Auto Create Goals Popup -->
+      <div class="modal-bg" id="autoCreateGoalsModalBg">
+        <div class="modal-content" id="autoCreateGoalsContent">
+          <h3>Auto Create Goals</h3>
+          <div class="info-text" id="autoCreateGoalsInfo">
+            <span id="autoCreateGoalsInfoText">Goals will be created based on dependents added in the system.</span>
+            <div class="auto-goal-progress-bar" style="margin-top:1rem;display:none;" id="autoGoalProgressBar">
+              <div class="auto-goal-progress" id="autoGoalProgress"></div>
+              <span class="auto-goal-progress-label" id="autoGoalProgressLabel"></span>
+            </div>
+          </div>
+          <div class="modal-actions" id="autoCreateGoalsActions">
+            <button type="button" onclick="startAutoCreateGoals()">Proceed</button>
+            <button type="button" onclick="closeAutoCreateGoalsPopup()">I Will</button>
+          </div>
+        </div>
+      </div>
+      <!-- Link Investment to Goals Popup -->
+      <div class="modal-bg" id="linkInvestmentModalBg">
+        <div class="modal-content" style="max-width:700px;">
+          <h3>Link Investment with Goals</h3>
+          <form id="linkInvestmentForm" onsubmit="saveLinkInvestment(event)">
+            <label for="link-goal-name">Goal Name</label>
+            <select id="link-goal-name" required>
+              <option value="">Select Goal</option>
+            </select>
+            <label for="link-investment-name">Investment Name</label>
+            <select id="link-investment-name" required onchange="updateInvestmentTypeLabel()">
+              <option value="">Select Investment</option>
+            </select>
+            <div style="text-align:left; margin-bottom:1rem; color:var(--accent2); font-weight:500;">
+              Investment Type: <span id="link-investment-type-label">N/A</span>
+            </div>
+            <label for="link-percent">Percentage Linked (%)</label>
+            <div class="percent-slider-wrapper">
+              <input type="range" id="link-percent" min="1" max="100" value="100" oninput="document.getElementById('link-percent-output').value=this.value" required>
+              <output id="link-percent-output" class="percent-slider-output">100</output>
+            </div>
+            <label for="link-notes">Notes</label>
+            <textarea id="link-notes" placeholder="Add any notes (optional)"></textarea>
+            <div class="modal-actions">
+              <button type="button" onclick="closeLinkInvestmentPopup()">Cancel</button>
+              <button type="submit" id="link-investment-save-btn">Save</button>
+            </div>
+          </form>
+          <div class="link-investment-popup-list" id="linkInvestmentListArea">
+            <!-- List of links will be rendered here -->
+          </div>
+        </div>
+      </div>
+      <!-- Auto-created goals table -->
+      <div id="auto-created-goals-table" style="display:none"></div>
+    </section>
+  </main>
+</body>
+</html>

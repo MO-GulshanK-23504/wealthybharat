@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Plan Your Wealth - Income & Budget</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Roboto:wght@400;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+  <script defer src="assets/main.js"></script>
+</head>
+<body>
+  <header>
+    <div class="top-brand">
+      <div class="brand-text">Plan Your Wealth</div>
+      <div class="current-time">2025-06-05 11:03:12 UTC</div>
+      <div class="profile-menu-container" id="profileMenuContainer">
+        <button class="user-info" id="profileMenuBtn">Welcome, MO-GulshanK-23504 &#9662;</button>
+        <div class="profile-dropdown" id="profileDropdown">
+          <div class="profile-section">
+            <strong>MO-GulshanK-23504</strong>
+            <span>Email: gulshank@example.com</span>
+            <span>Role: User</span>
+            <span>Member since: Jan 2024</span>
+          </div>
+          <div class="profile-actions">
+            <button onclick="viewProfile()">View Profile</button>
+            <button onclick="logout()">Logout</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <nav>
+      <div class="nav-links">
+        <a href="index.html">Dashboard</a>
+        <a href="goals.html">Goals</a>
+        <a href="investments.html">Investments</a>
+        <a href="income-expenses.html" class="active">Income & Budget</a>
+        <a href="reports.html">Reports</a>
+        <a href="calculator.html">Calculator</a>
+        <a href="support.html">Support</a>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <section class="active">
+      <h1>Income & Budget</h1>
+      <div class="tabs">
+        <div class="tab active" onclick="showTab('add-income')">Add Income</div>
+        <div class="tab" onclick="showTab('add-expense')">Add Expense</div>
+        <div class="tab" onclick="showTab('add-budget')">Add Budget</div>
+      </div>
+      <div id="add-income" class="form-container active">
+        <form>
+          <label for="income-type">Income Type</label>
+          <select id="income-type" required>
+            <option value="salary">Salary</option>
+            <option value="freelance">Freelance</option>
+            <option value="investment">Investment</option>
+            <option value="other">Other</option>
+          </select>
+          <label for="income-amount">Income Amount</label>
+          <input type="number" id="income-amount" placeholder="Enter income amount" required>
+          <label for="income-date">Income Date</label>
+          <input type="date" id="income-date" required>
+          <button type="submit">Add Income</button>
+        </form>
+      </div>
+      <div id="add-expense" class="form-container">
+        <form>
+          <label for="expense-type">Expense Type</label>
+          <select id="expense-type" required>
+            <option value="rent">Rent</option>
+            <option value="utilities">Utilities</option>
+            <option value="groceries">Groceries</option>
+            <option value="entertainment">Entertainment</option>
+            <option value="other">Other</option>
+          </select>
+          <label for="expense-amount">Expense Amount</label>
+          <input type="number" id="expense-amount" placeholder="Enter expense amount" required>
+          <label for="expense-date">Expense Date</label>
+          <input type="date" id="expense-date" required>
+          <button type="submit">Add Expense</button>
+        </form>
+      </div>
+      <div id="add-budget" class="form-container">
+        <form>
+          <label for="budget-type">Expense Type</label>
+          <select id="budget-type" required>
+            <option value="rent">Rent</option>
+            <option value="utilities">Utilities</option>
+            <option value="groceries">Groceries</option>
+            <option value="entertainment">Entertainment</option>
+            <option value="other">Other</option>
+          </select>
+          <label for="budget-amount">Budgeted Amount</label>
+          <input type="number" id="budget-amount" placeholder="Enter budget amount" required>
+          <label for="budget-threshold">Alert Threshold (e.g. notify at 80% usage)</label>
+          <input type="range" id="budget-threshold" min="0" max="100" value="80" oninput="this.nextElementSibling.value = this.value">
+          <output>80</output>
+          <button type="submit">Add Budget</button>
+        </form>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
